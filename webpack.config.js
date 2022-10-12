@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   entry: './src/main.ts',
   devtool: 'inline-source-map',
   plugins: [
@@ -20,6 +21,15 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    liveReload: true,
+    watchFiles: ['src/', 'dist/'],
+    compress: true,
+    port: 8000,
   },
   output: {
     filename: 'main.js',
