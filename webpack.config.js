@@ -26,6 +26,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'dist'),
     },
+    open: true,
     liveReload: true,
     watchFiles: ['src/', 'dist/'],
     compress: true,
