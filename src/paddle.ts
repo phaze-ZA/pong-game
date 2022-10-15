@@ -1,12 +1,13 @@
 import { Container, Graphics, Point } from "pixi.js";
 import { app } from "./main";
+import { IGameObject } from "./types";
 
-export class Paddle extends Container {
-    public acceleration: Point;
+export class Paddle extends Container implements IGameObject {
+    velocity: Point;
+
     constructor(x: number, y: number, name: string) {
         super();
-        this.name = name;        
-        this.acceleration = new Point(0);
+        this.velocity = new Point(0);
 
         const paddleWidth = 10;
         const paddleHeight = 50;
@@ -20,15 +21,15 @@ export class Paddle extends Container {
         this.addChild(paddle);
     }
 
-    move(distance: number) {
-        if (this.y + distance > (app.screen.height - this.height)) {
+    update(delta: number): void {
+        if (this.y + this.velocity.y * delta > (app.screen.height - this.height)) {
             this.y = app.screen.height - this.height;
         }
-        else if (this.y + distance < 0) {
+        else if (this.y + this.velocity.y * delta < 0) {
             this.y = 0;
         }
         else {
-            this.y += distance;
+            this.y += this.velocity.y * delta;
         }
     }
 }
