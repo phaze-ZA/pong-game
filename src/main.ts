@@ -13,7 +13,7 @@ const aiPaddle = new Paddle(app.screen.width - 10, 0, 'player-paddle');
 aiPaddle.acceleration.set(0, 10);
 app.stage.addChild(aiPaddle);
 
-const ball = new Ball(app.screen.width / 2, app.screen.height / 2);
+const ball = new Ball();
 app.stage.addChild(ball);
 
 const up = new Key("ArrowUp");
@@ -25,7 +25,7 @@ up.press = () => {
 
 up.release = () => {
     if (!down.isDown) {
-        playerPaddle.acceleration.y = 0;
+        playerPaddle.velocity.y = 0;
     }
 }
 
@@ -35,7 +35,7 @@ down.press = () => {
 
 down.release = () => {
     if (!up.isDown) {
-        playerPaddle.acceleration.y = 0;   
+        playerPaddle.velocity.y = 0;
     }
 }
 
@@ -46,25 +46,29 @@ enum Direction {
 
 function movePaddle(direction: Direction, paddle: Paddle): void {
     switch (direction) {
-        case Direction.UP: 
+        case Direction.UP:
             if (paddle.y > 0) {
-                paddle.acceleration.y = -10;
+                paddle.velocity.y = -10;
             }
             break;
         case Direction.DOWN:
             if (paddle.y + paddle.height < app.screen.height) {
-                paddle.acceleration.y = 10;
+                paddle.velocity.y = 10;
             }
             break;
     }
 }
 
 app.ticker.add((delta) => {
-    const newVal = aiPaddle.acceleration.y * (delta / 2) + aiPaddle.y;
-    if (newVal < 0 || newVal > (app.screen.height - aiPaddle.height)) {
-        aiPaddle.acceleration.y = -aiPaddle.acceleration.y;
+    if (ball.y + ball.height / 2 >= aiPaddle.y + aiPaddle.height / 2) {
+        movePaddle(Direction.DOWN, aiPaddle);
+    }
+    else if (ball.y + ball.height / 2 <= aiPaddle.y) {
+        movePaddle(Direction.UP, aiPaddle);
     }
 
-    aiPaddle.move(aiPaddle.acceleration.y * (delta / 2));
-    playerPaddle.move(playerPaddle.acceleration.y * (delta / 2));
+    aiPaddle.update(delta);
+    playerPaddle.update(delta);
+    ball.update(delta);
+
 });
