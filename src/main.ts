@@ -66,4 +66,25 @@ app.ticker.add((delta) => {
     playerPaddle.update(delta);
     ball.update(delta);
 
+    if (isColliding(playerPaddle, ball) || isColliding(aiPaddle, ball)){
+        ball.velocity.x = -1.1 * ball.velocity.x;
+    }
+
 });
+
+// AABB Collision Test
+function isColliding(object1: IGameObject, object2: IGameObject) {
+    const { x: x1, y: y1, height: h1, width: w1 } = object1; // object1
+    const { x: x2, y: y2, height: h2, width: w2 } = object2; // object2
+
+    return (
+        // If left of object1 is further left than right of object2
+        x1 < x2 + w2 &&
+        // If right of object1 is further right than left of object2
+        x1 + w1 > x2 &&
+        // If top of object2 is higher than bottom of object1
+        y1 < y2 + h2 &&
+        // If bottom of object2 is lower than top of object1
+        y1 + h1 > y2
+    );
+}
