@@ -2,6 +2,7 @@ import { Application } from 'pixi.js';
 import { Ball } from './ball';
 import { Key } from './key';
 import { Paddle } from './paddle';
+import { Direction, IGameObject } from './types';
 
 export const app = new Application({ backgroundColor: 0x000000, width: 500, height: 500 });
 document.body.appendChild(app.view);
@@ -38,11 +39,6 @@ down.release = () => {
         playerPaddle.velocity.y = 0;
     }
 }
-
-enum Direction {
-    UP,
-    DOWN
-};
 
 function movePaddle(direction: Direction, paddle: Paddle): void {
     switch (direction) {

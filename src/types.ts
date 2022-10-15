@@ -14,3 +14,8 @@ export interface IGameObject {
 
     update(delta: number): void;
 }
+
+export enum Direction {
+    UP,
+    DOWN
+};
