@@ -19,7 +19,7 @@ export class Key {
         window.addEventListener("keydown", this.downListener, false);
         window.addEventListener("keyup", this.upListener, false);
     }
-    
+
     downHandler(event: KeyboardEvent): void {
         if (event.key === this.value) {
           if (this.isUp && this.press) {
