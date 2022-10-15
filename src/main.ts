@@ -7,11 +7,10 @@ import { Direction, IGameObject } from './types';
 export const app = new Application({ backgroundColor: 0x000000, width: 500, height: 500 });
 document.body.appendChild(app.view);
 
-const playerPaddle = new Paddle(0, 0, 'player-paddle');
+const playerPaddle = new Paddle(10, app.screen.height / 2, 'player-paddle');
 app.stage.addChild(playerPaddle);
 
-const aiPaddle = new Paddle(app.screen.width - 10, 0, 'player-paddle');
-aiPaddle.acceleration.set(0, 10);
+const aiPaddle = new Paddle(app.screen.width - 20, app.screen.height / 2, 'player-paddle');
 app.stage.addChild(aiPaddle);
 
 const ball = new Ball();
