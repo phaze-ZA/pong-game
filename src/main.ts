@@ -54,7 +54,7 @@ app.ticker.add((delta) => {
     ball.update(delta);
 
     if (isColliding(playerPaddle, ball) || isColliding(aiPaddle, ball)){
-        ball.velocity.x = -1.1 * ball.velocity.x;
+        ball.bounce();
     }
 });
 
