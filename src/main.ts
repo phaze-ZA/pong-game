@@ -55,10 +55,13 @@ function movePaddle(direction: Direction, paddle: Paddle): void {
 }
 
 app.ticker.add((delta) => {
-    if (ball.y + ball.height / 2 >= aiPaddle.y + aiPaddle.height / 2) {
+
+    // If top of ball is lower than bottom of paddle
+    if (ball.y > aiPaddle.y + aiPaddle.height) {
         movePaddle(Direction.DOWN, aiPaddle);
     }
-    else if (ball.y + ball.height / 2 <= aiPaddle.y) {
+    // If bottom of ball is above top of paddle
+    else if (ball.y + ball.height < aiPaddle.y) {
         movePaddle(Direction.UP, aiPaddle);
     }
 
@@ -69,7 +72,6 @@ app.ticker.add((delta) => {
     if (isColliding(playerPaddle, ball) || isColliding(aiPaddle, ball)){
         ball.velocity.x = -1.1 * ball.velocity.x;
     }
-
 });
 
 // AABB Collision Test
