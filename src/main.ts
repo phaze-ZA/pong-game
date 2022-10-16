@@ -2,7 +2,7 @@ import { Application } from 'pixi.js';
 import { Ball } from './ball';
 import { Key } from './key';
 import { Paddle } from './paddle';
-import { Direction, IGameObject } from './types';
+import { IGameObject } from './types';
 
 export const app = new Application({ backgroundColor: 0x000000, width: 500, height: 500 });
 document.body.appendChild(app.view);
@@ -20,37 +20,22 @@ const up = new Key("ArrowUp");
 const down = new Key("ArrowDown");
 
 up.press = () => {
-    movePaddle(Direction.UP, playerPaddle);
+    playerPaddle.move(true);
 }
 
 up.release = () => {
     if (!down.isDown) {
-        playerPaddle.velocity.y = 0;
+        playerPaddle.stop();
     }
 }
 
 down.press = () => {
-    movePaddle(Direction.DOWN, playerPaddle);
+    playerPaddle.move(false);
 }
 
 down.release = () => {
     if (!up.isDown) {
-        playerPaddle.velocity.y = 0;
-    }
-}
-
-function movePaddle(direction: Direction, paddle: Paddle): void {
-    switch (direction) {
-        case Direction.UP:
-            if (paddle.y > 0) {
-                paddle.velocity.y = -10;
-            }
-            break;
-        case Direction.DOWN:
-            if (paddle.y + paddle.height < app.screen.height) {
-                paddle.velocity.y = 10;
-            }
-            break;
+        playerPaddle.stop();
     }
 }
 
@@ -58,11 +43,11 @@ app.ticker.add((delta) => {
 
     // If top of ball is lower than bottom of paddle
     if (ball.y > aiPaddle.y + aiPaddle.height) {
-        movePaddle(Direction.DOWN, aiPaddle);
+        aiPaddle.move(false);
     }
     // If bottom of ball is above top of paddle
     else if (ball.y + ball.height < aiPaddle.y) {
-        movePaddle(Direction.UP, aiPaddle);
+        aiPaddle.move(true);
     }
 
     aiPaddle.update(delta);
