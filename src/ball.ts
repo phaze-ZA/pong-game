@@ -12,7 +12,7 @@ export class Ball extends Container implements IGameObject {
         this.x = app.screen.width / 2;
         this.y = app.screen.height / 2;
         this.velocity = new Point(0, 0);
-        this.maxVelocity = new Point(40, 20);
+        this.maxVelocity = new Point(30, 20);
 
         this.reset();
 
