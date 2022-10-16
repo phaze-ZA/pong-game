@@ -11,8 +11,8 @@ export class Paddle extends Container implements IGameObject {
         this.velocity = new Point(0);
         this.maxVelocity = new Point(0, 10);
 
-        const paddleWidth = 10;
-        const paddleHeight = 50;
+        const paddleWidth = 20;
+        const paddleHeight = 80;
         this.x = x;
         this.y = y;
 
