@@ -2,6 +2,7 @@ import { Point } from "pixi.js";
 
 export interface IGameObject {
     velocity: Point;
+    maxVelocity: Point;
     name: string;
     x: number;
     y: number;
