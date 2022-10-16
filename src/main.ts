@@ -41,11 +41,11 @@ down.release = () => {
 
 app.ticker.add((delta) => {
     // If top of ball is lower than bottom of paddle
-    if (ball.y > aiPaddle.y + aiPaddle.height) {
+    if (ball.y > aiPaddle.y + aiPaddle.height - 20) {
         aiPaddle.move(false);
     }
     // If bottom of ball is above top of paddle
-    else if (ball.y + ball.height < aiPaddle.y) {
+    else if (ball.y + ball.height < aiPaddle.y + 20) {
         aiPaddle.move(true);
     }
 
