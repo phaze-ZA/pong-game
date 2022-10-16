@@ -10,7 +10,7 @@ document.body.appendChild(app.view);
 const playerPaddle = new Paddle(10, app.screen.height / 2, 'player-paddle');
 app.stage.addChild(playerPaddle);
 
-const aiPaddle = new Paddle(app.screen.width - 30, app.screen.height / 2, 'player-paddle');
+const aiPaddle = new Paddle(app.screen.width - 40, app.screen.height / 2, 'player-paddle');
 app.stage.addChild(aiPaddle);
 
 const ball = new Ball();
