@@ -10,8 +10,9 @@ export class Ball extends Container implements IGameObject {
         // Ball always starts in the center
         this.x = app.screen.width / 2;
         this.y = app.screen.height / 2;
+        this.velocity = new Point(0, 0);
 
-        this.velocity = new Point(10, 0);
+        this.reset();
 
         const ball = new Graphics();
         ball.beginFill(0xFFFFFF);
@@ -36,6 +37,6 @@ export class Ball extends Container implements IGameObject {
     reset() {
         this.x = app.screen.width / 2;
         this.y = app.screen.height / 2;
-        this.velocity = new Point(10, 0);
+        this.velocity.set(Math.random() * 5 + 2, Math.random() * 5 + 2)
     }
 }
